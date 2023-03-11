@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import { useState } from "react";
 import { useEffect } from "react";
@@ -7,7 +7,9 @@ import Sort from "../components/Sort";
 import Categories from "../components/Categories";
 import PizzaList from "../components/PizzaList";
 import Pagination from "../components/Pagination";
-const Home = ({ searchValue }) => {
+import { SearchContext } from "../App";
+const Home = () => {
+  const { searchValue } = useContext(SearchContext);
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [categoryId, setCategoryId] = useState(0);
@@ -32,9 +34,9 @@ const Home = ({ searchValue }) => {
         ? `category=${categoryId}`
         : ""; /* если категория выбрана ВСЕ то ничего не меняй, оставляй все пиццы, в ином случае подставь нужную категорию, если id меньше нуля  */
     /*     const search = searchValue ? `&search=${searchValue}` : ""; */
-
+    const search = searchValue ? `search=${searchValue}` : "";
     fetch(
-      `https://63fdf3a4cd13ced3d7c30d38.mockapi.io/items?page=${currentPage}&limit=8&${category}&sortBy=${sortBy}&order=${order}`
+      `https://63fdf3a4cd13ced3d7c30d38.mockapi.io/items?page=${currentPage}&limit=8&${category}&sortBy=${sortBy}&order=${order}&${search}`
     )
       .then((res) => {
         return res.json();
@@ -45,7 +47,7 @@ const Home = ({ searchValue }) => {
       });
 
     window.scrollTo(0, 0); /* при первом рендере сделать скролл вверх */
-  }, [categoryId, sort, currentPage]);
+  }, [categoryId, sort, currentPage, searchValue]);
   return (
     <>
       <div className="content__top">

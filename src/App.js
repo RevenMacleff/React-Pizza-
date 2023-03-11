@@ -8,28 +8,25 @@ import NotFound from "./pages/NotFound";
 /* Ctrl + F поик и замена текста */
 import "./scss/app.scss";
 
+export const SearchContext = React.createContext("");
 function App() {
   const [searchValue, setSearchValue] = useState("");
 
   return (
     <div className="wrapper">
-      <Header
-        searchValue={searchValue}
-        setSearchValue={setSearchValue}
-      ></Header>
-      <div className="content">
-        <div className="container">
-          <Routes>
-            <Route
-              path="/"
-              element={<Home searchValue={searchValue}></Home>}
-            ></Route>
-            <Route path="/cart" element={<Cart></Cart>}></Route>
-            <Route path="*" element={<NotFound></NotFound>}></Route>
-            {/* звездочка говорит нам о том, что если путь не найден, то перейти сюда */}
-          </Routes>
+      <SearchContext.Provider value={{ searchValue, setSearchValue }}>
+        <Header></Header>
+        <div className="content">
+          <div className="container">
+            <Routes>
+              <Route path="/" element={<Home></Home>}></Route>
+              <Route path="/cart" element={<Cart></Cart>}></Route>
+              <Route path="*" element={<NotFound></NotFound>}></Route>
+              {/* звездочка говорит нам о том, что если путь не найден, то перейти сюда */}
+            </Routes>
+          </div>
         </div>
-      </div>
+      </SearchContext.Provider>
     </div>
   );
 }
