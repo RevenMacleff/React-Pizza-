@@ -10,7 +10,7 @@ const Pagination = ({ onChangePage }) => {
       nextLabel=">"
       previousLabel="<"
       onPageChange={(e) => onChangePage(e.selected + 1)}
-      pageRangeDisplayed={8}
+      pageRangeDisplayed={9}
       pageCount={3}
       renderOnZeroPageCount={null}
     ></ReactPaginate>

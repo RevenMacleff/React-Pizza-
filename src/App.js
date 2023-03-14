@@ -6,6 +6,7 @@ import Cart from "./pages/Cart";
 import NotFound from "./pages/NotFound";
 /* import pizzas from "./pizzas.json"; */
 /* Ctrl + F поик и замена текста */
+
 import "./scss/app.scss";
 
 export const SearchContext = React.createContext("");
