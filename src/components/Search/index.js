@@ -1,9 +1,33 @@
-import React, { useContext } from "react";
+import React, { useCallback, useContext, useRef } from "react";
+import debounce from "lodash.debounce";
 import styles from "./Search.module.scss";
 import { SearchContext } from "../../App";
 
 const Search = () => {
-  const { searchValue, setSearchValue } = useContext(SearchContext);
+  const [value, setValue] = React.useState("");
+  const { setSearchValue } = useContext(SearchContext);
+  const inputRef = useRef();
+
+  const updateSearchValue = useCallback(
+    debounce((str) => {
+      setSearchValue(str);
+    }, 700),
+    []
+  ); /* Из-за перерисовки компонента, перерисовываются и функции внутри него, создавая другие новые функции с другими значениями
+  UseCallback позволяет не создавать новые функции а ссылаться на старые, оставляя пустой массив, мы говорим usecallback
+  ссылаться на первоначальную версию */
+
+  const onClickClear = () => {
+    setSearchValue("");
+    setValue("");
+    inputRef.current.focus();
+  };
+
+  const onChangeInput = (e) => {
+    setValue(e.target.value);
+    updateSearchValue(e.target.value);
+  };
+
   return (
     <div className={styles.root}>
       <svg
@@ -36,19 +60,16 @@ const Search = () => {
         </g>
       </svg>
       <input
-        value={searchValue}
-        onChange={(e) => {
-          setSearchValue(e.target.value);
-        }}
+        ref={inputRef}
+        value={value}
+        onChange={onChangeInput}
         className={styles.input}
         type="text"
         placeholder="Поиск пиццы...."
       />
-      {searchValue && (
+      {value && (
         <svg
-          onClick={() => {
-            setSearchValue("");
-          }}
+          onClick={onClickClear}
           className={styles.close}
           height="32px"
           version="1.1"
