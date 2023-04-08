@@ -44,10 +44,10 @@ const Home = () => {
       categoryId > 0
         ? `category=${categoryId}`
         : ""; /* если категория выбрана ВСЕ то ничего не меняй, оставляй все пиццы, в ином случае подставь нужную категорию, если id меньше нуля  */
-    const search = searchValue ? `search=${searchValue}` : "";
+    /*     const search = searchValue ? `search=${searchValue}` : "";  поиск бек*/
     axios
       .get(
-        `https://63fdf3a4cd13ced3d7c30d38.mockapi.io/items?page=${currentPage}&limit=9&${category}&sortBy=${sortBy}&order=${order}&${search}`
+        `https://63fdf3a4cd13ced3d7c30d38.mockapi.io/items?page=${currentPage}&limit=9&${category}&sortBy=${sortBy}&order=${order}`
       )
       .then((res) => {
         setItems(res.data);
@@ -55,7 +55,7 @@ const Home = () => {
       });
 
     window.scrollTo(0, 0); /* при первом рендере сделать скролл вверх */
-  }, [categoryId, sortType, currentPage, searchValue]);
+  }, [categoryId, sortType, currentPage]);
   return (
     <>
       <div className="content__top">

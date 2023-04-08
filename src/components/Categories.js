@@ -19,9 +19,7 @@ const Categories = ({ value, onClickCategory }) => {
       </li>
     );
   });
-  /*   const activeChange = (id) => {
-    setActive(id);
-  }; */
+
   return (
     <div>
       <div className="categories">

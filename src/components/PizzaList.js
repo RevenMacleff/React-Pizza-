@@ -6,7 +6,7 @@ import Skeleton from "./PizzaBlock/Skeleton";
 
 const PizzaList = ({ pizzas, loading, searchValue }) => {
   const items = pizzas
-    /*     .filter((obj) => {
+    .filter((obj) => {
       if (
         obj.title.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())
       ) {
@@ -14,7 +14,7 @@ const PizzaList = ({ pizzas, loading, searchValue }) => {
       } else {
         return false;
       }
-    })  */ /*  ВАРИАНТ ПОИСКА ДЛЯ СТАТИКИ БЕЗ БЕКЕНДА */
+    }) /*  ВАРИАНТ ПОИСКА ДЛЯ СТАТИКИ БЕЗ БЕКЕНДА */
     .map((pizzaItem) => {
       return <PizzaBlock {...pizzaItem} key={pizzaItem.id}></PizzaBlock>;
     });

@@ -9,14 +9,10 @@ export const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    /*     addItem(state, action) {
-      state.items.push(action.payload);
-      state.totalPrice = state.items.reduce((sum, obj) => {
-        return obj.price + sum;
-      }, 0);
-    }, */
     addItem(state, action) {
-      const findItem = state.items.find((obj) => obj.id === action.payload.id);
+      const findItem = state.items.find(
+        (obj) => obj.id === action.payload.id
+      ); /* action это то что приходит в результаты dispatch .payload это с доп парамтерами */
       if (findItem) {
         findItem.count++;
       } else {
@@ -27,12 +23,6 @@ export const cartSlice = createSlice({
         return obj.price * obj.count + sum;
       }, 0);
     },
-    /*     plusItem(state, action) {
-      const findItem = state.items.find((obj) => obj.id === action.payload);
-      if (findItem) {
-        findItem.count++;
-      }
-    }, */
     minusItem(state, action) {
       const findItem = state.items.find((obj) => obj.id === action.payload);
       if (findItem.count > 0) {
