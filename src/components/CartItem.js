@@ -1,25 +1,28 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { addItem, minusItem, removeItem } from "../redux/slices/cartSlice";
-const CartItem = ({ id, price, count, title, imageUrl, type }) => {
+const CartItem = ({ id, price, count, title, imageUrl, type, size }) => {
   const dispatch = useDispatch();
 
   const onClickPlus = () => {
-    dispatch(
-      addItem({
-        id,
-      })
-    );
+    dispatch(addItem({ id, type, size }));
   };
 
   const onClickMinus = () => {
-    dispatch(minusItem(id));
+    dispatch(minusItem({ id, type, size }));
   };
 
   const onClickRemove = () => {
-    dispatch(removeItem(id));
+    dispatch(removeItem({ id, type, size }));
   };
-
+  let cm = 0;
+  if (size === 0) {
+    cm = 26;
+  } else if (size === 1) {
+    cm = 30;
+  } else {
+    cm = 40;
+  }
   return (
     <div className="cart__item">
       <div className="cart__item-img">
@@ -27,7 +30,9 @@ const CartItem = ({ id, price, count, title, imageUrl, type }) => {
       </div>
       <div className="cart__item-info">
         <h3>{title}</h3>
-        <p>{type}, 26 см.</p>
+        <p>
+          {type}, {cm} см.
+        </p>
       </div>
       <div className="cart__item-count">
         <div

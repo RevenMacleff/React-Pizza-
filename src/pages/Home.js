@@ -51,6 +51,7 @@ const Home = () => {
       )
       .then((res) => {
         setItems(res.data);
+        /*    console.log(res.data[0].category); */
         setIsLoading(false);
       });
 

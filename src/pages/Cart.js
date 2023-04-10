@@ -91,7 +91,12 @@ const Cart = () => {
         </div>
         <div className="content__items">
           {items.map((item) => {
-            return <CartItem key={item.id} {...item}></CartItem>;
+            return (
+              <CartItem
+                key={item.id + item.size + item.type}
+                {...item}
+              ></CartItem>
+            );
           })}
         </div>
         <div className="cart__bottom">
