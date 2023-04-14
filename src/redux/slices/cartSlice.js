@@ -43,8 +43,21 @@ export const cartSlice = createSlice({
           obj.type === payload.type
         );
       });
+
       findItem && findItem.count--;
-      state.totalPrice -= findItem.price;
+      if (findItem.count > 0) {
+        if (findItem) {
+          findItem.count--;
+        }
+      } else {
+        findItem.count = 0;
+      }
+      if (state.totalPrice > 0) {
+        state.totalPrice -= findItem.price;
+      } else if (state.totalPrice <= 0) {
+        state.totalPrice = 0;
+      }
+      /*       state.totalPrice -= findItem.price; */
     },
 
     removeItem(state, { payload }) {
