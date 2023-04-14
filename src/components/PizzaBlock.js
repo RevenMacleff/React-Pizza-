@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addItem } from "../redux/slices/cartSlice";
@@ -12,17 +12,48 @@ const PizzaBlock = ({ id, title, imageUrl, price, sizes, types }) => {
   );
   const [activeType, setActiveType] = useState(0);
   const [activeSize, setActiveSize] = useState(0);
+  const [typePrice, setTypePrice] = useState(0);
+  const [sizePrice, setSizePrice] = useState(0);
+  const [totalPlus, setTotalPlus] = useState(0);
+  const [pizzaPrice, setPizzaPrice] = useState(price);
+  const [counter, setCounter] = useState(0);
   const addedCount = cartItem ? cartItem.count : 0;
+
+  useEffect(() => {
+    const newPrice = price + sizePrice + typePrice;
+    setTotalPlus(sizePrice + typePrice);
+    setPizzaPrice(newPrice);
+  }, [price, sizePrice, typePrice]);
+
+  const onChangeType = (type) => {
+    if (type === 0) {
+      setTypePrice(0);
+    } else if (type === 1) {
+      setTypePrice(15);
+    }
+    setActiveType(type);
+  };
+  const onChangeSize = (size) => {
+    if (size === 0) {
+      setSizePrice(0);
+    } else if (size === 1) {
+      setSizePrice(30);
+    } else if (size === 2) {
+      setSizePrice(50);
+    }
+    setActiveSize(size);
+  };
   const onClickAdd = () => {
     const item = {
       id,
       title,
-      price,
+      price: pizzaPrice,
       imageUrl,
       type: typeNames[activeType],
       size: activeSize,
     };
     dispatch(addItem(item));
+    setCounter((counter) => counter + 1);
   };
 
   return (
@@ -36,7 +67,7 @@ const PizzaBlock = ({ id, title, imageUrl, price, sizes, types }) => {
               /*               <li>{type === 0 ? "тонкое" : "традиционное"}</li> */
               <li
                 key={index}
-                onClick={() => setActiveType(type)}
+                onClick={() => onChangeType(type)}
                 className={activeType === type ? "active" : ""}
               >
                 {typeNames[type]}
@@ -47,7 +78,7 @@ const PizzaBlock = ({ id, title, imageUrl, price, sizes, types }) => {
             {sizes.map((size, id) => (
               <li
                 key={id}
-                onClick={() => setActiveSize(id)}
+                onClick={() => onChangeSize(id)}
                 className={activeSize === id ? "active" : ""}
               >
                 {size} см
@@ -56,7 +87,7 @@ const PizzaBlock = ({ id, title, imageUrl, price, sizes, types }) => {
           </ul>
         </div>
         <div className="pizza-block__bottom">
-          <div className="pizza-block__price">{price} руб</div>
+          <div className="pizza-block__price">{pizzaPrice} руб</div>
           <button
             onClick={onClickAdd}
             className="button button--outline button--add"
@@ -74,7 +105,7 @@ const PizzaBlock = ({ id, title, imageUrl, price, sizes, types }) => {
               />
             </svg>
             <span>Добавить</span>
-            <i>{addedCount}</i>
+            <i>{counter}</i>
           </button>
         </div>
       </div>

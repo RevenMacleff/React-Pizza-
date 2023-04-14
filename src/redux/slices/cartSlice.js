@@ -4,7 +4,14 @@ const initialState = {
   totalPrice: 0,
   items: [],
 };
-
+/* const refactorFindItem = (state, payload) => {
+  return state.items.find(
+    (obj) =>
+      obj.id === payload.id &&
+      obj.type === payload.type &&
+      obj.size === payload.size
+  );
+}; */
 export const cartSlice = createSlice({
   name: "cart",
   initialState,
