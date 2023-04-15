@@ -44,20 +44,17 @@ export const cartSlice = createSlice({
         );
       });
 
-      /*       findItem && findItem.count--; */
-      if (findItem.count > 0) {
-        if (findItem) {
-          findItem.count--;
-        }
-      } else {
-        findItem.count = 0;
+      if (findItem && findItem.count > 0) {
+        findItem.count--;
+      } else if (findItem && findItem.count === 0) {
+        state.removeItem(payload);
       }
-      if (state.totalPrice > 0) {
+
+      if (state.totalPrice > 0 && findItem.count !== -1) {
         state.totalPrice -= findItem.price;
       } else if (state.totalPrice <= 0) {
         state.totalPrice = 0;
       }
-      /*       state.totalPrice -= findItem.price; */
     },
 
     removeItem(state, { payload }) {
