@@ -52,3 +52,10 @@
     }
   }
 }
+@media (max-width: 1200px) {
+  .sort {
+    &__label {
+      flex-wrap: wrap;
+    }
+  }
+}

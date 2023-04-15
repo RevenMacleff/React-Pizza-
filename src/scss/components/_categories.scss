@@ -32,3 +32,30 @@
     }
   }
 }
+/* 992 */
+/* Стили работают только если монитор меньше 1200 пикселей */
+@media (max-width: 1200px) {
+  .categories {
+    ul {
+      flex-wrap: wrap;
+      li {
+        margin-top: 10px;
+      }
+    }
+  }
+}
+/* 768 */
+@media (max-width: 991px) {
+}
+/* 576 */
+@media (max-width: 767px) {
+}
+/* 320px */
+@media (max-width: 575px) {
+  .categories {
+    ul {
+      flex-wrap: nowrap;
+      overflow-x: scroll;
+    }
+  }
+}

@@ -31,3 +31,28 @@
     }
   }
 }
+@media (max-width: 1200px) {
+  .header {
+    &__logo {
+      width: 67%;
+    }
+  }
+}
+/* 768 */
+@media (max-width: 991px) {
+  .header {
+    &__logo {
+      flex-direction: column;
+    }
+  }
+}
+@media (max-width: 575px) {
+  .header {
+    &__logo {
+      align-items: center;
+      width: auto;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+  }
+}
