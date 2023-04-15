@@ -7,17 +7,17 @@ const typeNames = ["тонкое", "традиционные"];
 
 const PizzaBlock = ({ id, title, imageUrl, price, sizes, types }) => {
   const dispatch = useDispatch();
+
   const cartItem = useSelector((state) =>
-    state.cart.items.find((obj) => obj.id === id)
+    state.cart.items.filter((obj) => obj.id === id)
   );
+  const addedCount = cartItem.reduce((sum, item) => sum + item.count, 0);
   const [activeType, setActiveType] = useState(0);
   const [activeSize, setActiveSize] = useState(0);
   const [typePrice, setTypePrice] = useState(0);
   const [sizePrice, setSizePrice] = useState(0);
   const [totalPlus, setTotalPlus] = useState(0);
   const [pizzaPrice, setPizzaPrice] = useState(price);
-  const [counter, setCounter] = useState(0);
-  const addedCount = cartItem ? cartItem.count : 0;
 
   useEffect(() => {
     const newPrice = price + sizePrice + typePrice;
@@ -53,7 +53,6 @@ const PizzaBlock = ({ id, title, imageUrl, price, sizes, types }) => {
       size: activeSize,
     };
     dispatch(addItem(item));
-    setCounter((counter) => counter + 1);
   };
 
   return (
@@ -105,7 +104,7 @@ const PizzaBlock = ({ id, title, imageUrl, price, sizes, types }) => {
               />
             </svg>
             <span>Добавить</span>
-            <i>{counter}</i>
+            <i>{addedCount}</i>
           </button>
         </div>
       </div>
