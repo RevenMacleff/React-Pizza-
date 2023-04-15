@@ -44,7 +44,7 @@ export const cartSlice = createSlice({
         );
       });
 
-      findItem && findItem.count--;
+      /*       findItem && findItem.count--; */
       if (findItem.count > 0) {
         if (findItem) {
           findItem.count--;
