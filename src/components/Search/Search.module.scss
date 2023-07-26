@@ -30,19 +30,3 @@
   right: 15px;
   top: 8px;
 }
-
-@media (max-width: 1200px) {
-  .input {
-    width: 130%;
-  }
-}
-/* 320px */
-@media (max-width: 575px) {
-  .root {
-    left: auto;
-    width: 90%;
-  }
-  .input {
-    width: 100%;
-  }
-}

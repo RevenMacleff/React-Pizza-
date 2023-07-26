@@ -18,11 +18,7 @@ export const cartSlice = createSlice({
   reducers: {
     addItem(state, { payload }) {
       const findItem = state.items.find((obj) => {
-        return (
-          obj.id === payload.id &&
-          obj.size === payload.size &&
-          obj.type === payload.type
-        );
+        return obj.id === payload.id && obj.size === payload.size && obj.type === payload.type;
       });
       findItem
         ? findItem.count++
@@ -37,41 +33,29 @@ export const cartSlice = createSlice({
 
     minusItem(state, { payload }) {
       const findItem = state.items.find((obj) => {
-        return (
-          obj.id === payload.id &&
-          obj.size === payload.size &&
-          obj.type === payload.type
-        );
+        return obj.id === payload.id && obj.size === payload.size && obj.type === payload.type;
       });
 
       if (findItem && findItem.count > 0) {
         findItem.count--;
-      } else if (findItem && findItem.count === 0) {
-        state.removeItem(payload);
       }
 
-      if (state.totalPrice > 0 && findItem.count !== -1) {
+      /*    if (state.totalPrice > 0 && findItem.count !== -1) {
         state.totalPrice -= findItem.price;
       } else if (state.totalPrice <= 0) {
         state.totalPrice = 0;
-      }
+      } */ state.totalPrice = state.items.reduce((sum, obj) => {
+        return obj.price * obj.count + sum;
+      }, 0);
     },
 
     removeItem(state, { payload }) {
       const findItem = state.items.find((obj) => {
-        return (
-          obj.id === payload.id &&
-          obj.size === payload.size &&
-          obj.type === payload.type
-        );
+        return obj.id === payload.id && obj.size === payload.size && obj.type === payload.type;
       });
       state.totalPrice -= findItem.price * findItem.count;
       state.items = state.items.filter((obj) => {
-        return (
-          obj.id !== payload.id ||
-          obj.size !== payload.size ||
-          obj.type !== payload.type
-        );
+        return obj.id !== payload.id || obj.size !== payload.size || obj.type !== payload.type;
       });
     },
     clearItem(state) {
